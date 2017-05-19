@@ -6,13 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.application.nikita.application.add.AddingFragment;
 import com.application.nikita.application.home.HomeFragment;
 import com.application.nikita.application.like.LikeFragment;
+import com.application.nikita.application.login.LoginFragment;
 import com.application.nikita.application.profile.ProfileFragment;
+import com.application.nikita.application.registration.RegistrationFragment;
 import com.application.nikita.application.search.SearchFragment;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentSwich{
 
 
 
@@ -31,33 +33,60 @@ public class MainActivity extends AppCompatActivity {
             {
                 case SELECTED_MENU_ITEM.HOME_ITEM:
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new HomeFragment(), MainActivity.FRAGMENTS_TAG.HOME_FRAGMENT_TAG).commit();
+                    switchFragment(APP_FRAGMENTS.HOME_FRAGMENT);
                     break;
                 }
                 case SELECTED_MENU_ITEM.SEARCH_ITEM:
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new SearchFragment(), MainActivity.FRAGMENTS_TAG.SEARCH_FRAGMENT_TAG).commit();
+                    switchFragment(APP_FRAGMENTS.SEARCH_FRAGMENT);
                     break;
                 }
                 case SELECTED_MENU_ITEM.ADDING_ITEM:
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new AddingFragment(), MainActivity.FRAGMENTS_TAG.ADD_FRAGMENT_TAG).commit();
+                    switchFragment(APP_FRAGMENTS.ADDING_FRAGMENT);
                     break;
                 }
                 case SELECTED_MENU_ITEM.LIKE_ITEM:
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new LikeFragment(), MainActivity.FRAGMENTS_TAG.LIKE_FRAGMENT_TAG).commit();
+                    switchFragment(APP_FRAGMENTS.LIKE_FRAGMENT);
                     break;
                 }
                 case SELECTED_MENU_ITEM.PROFILE_ITEM:
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new ProfileFragment(), MainActivity.FRAGMENTS_TAG.PROFILE_FRAGMENT_TAG).commit();
+                    switchFragment(APP_FRAGMENTS.PROFILE_FRAGMENT);
                     break;
                 }
             }
             return true;
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new HomeFragment(), MainActivity.FRAGMENTS_TAG.HOME_FRAGMENT_TAG).commit();
+    }
+
+    @Override
+    public void switchFragment(APP_FRAGMENTS arg) {
+        switch (arg) {
+            case LOGIN_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new LoginFragment(), MainActivity.FRAGMENTS_TAG.LOGIN_FRAGMENT_TAG).commit();
+                break;
+            case REGISTRATION_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new RegistrationFragment(), MainActivity.FRAGMENTS_TAG.REGISTRATION_FRAGMENT_TAG).commit();
+                break;
+            case PROFILE_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new ProfileFragment(), MainActivity.FRAGMENTS_TAG.PROFILE_FRAGMENT_TAG).commit();
+                break;
+            case LIKE_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new LikeFragment(), MainActivity.FRAGMENTS_TAG.LIKE_FRAGMENT_TAG).commit();
+                break;
+            case HOME_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new HomeFragment(), MainActivity.FRAGMENTS_TAG.HOME_FRAGMENT_TAG).commit();
+                break;
+            case ADDING_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new RegistrationFragment(), MainActivity.FRAGMENTS_TAG.ADD_FRAGMENT_TAG).commit();
+                break;
+            case SEARCH_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new RegistrationFragment(), MainActivity.FRAGMENTS_TAG.SEARCH_FRAGMENT_TAG).commit();
+                break;
+        }
     }
 
     public static class   SELECTED_MENU_ITEM
@@ -70,12 +99,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static class  FRAGMENTS_TAG
-    {
-        public static final String HOME_FRAGMENT_TAG = "HOME_FRAGMENT_TAG";
-        public static final String SEARCH_FRAGMENT_TAG = "SEARCH_FRAGMENT_TAG";
-        public static final String ADD_FRAGMENT_TAG = "ADD_FRAGMENT_TAG";
-        public static final String LIKE_FRAGMENT_TAG = "LIKE_FRAGMENT_TAG";
-        public static final String PROFILE_FRAGMENT_TAG = "PROFILE_FRAGMENT_TAG";
-    }
+
 }
