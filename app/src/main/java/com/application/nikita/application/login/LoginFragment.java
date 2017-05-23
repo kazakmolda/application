@@ -27,6 +27,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         activity.findViewById(R.id.login_button).setOnClickListener(this);
         activity.findViewById(R.id.forgot_passwd_button).setOnClickListener(this);
         activity.findViewById(R.id.registration_button).setOnClickListener(this);
+
     }
 
     @Nullable
@@ -46,9 +47,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.forgot_passwd_button:
-            {/*
+            {
                 FragmentSwich switcFragment = (FragmentSwich) this.getActivity();
-                switcFragment.switchFragment(FragmentSwich.APP_FRAGMENTS.HOME_FRAGMENT);*/
+                switcFragment.switchFragment(FragmentSwich.APP_FRAGMENTS.FORGOT_PASSWORD_FRAGMENT);
                 break;
             }
             case R.id.registration_button:
@@ -58,5 +59,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Activity activity = getActivity();
+        activity.findViewById(R.id.login_button).setOnClickListener(null);
+        activity.findViewById(R.id.forgot_passwd_button).setOnClickListener(null);
+        activity.findViewById(R.id.registration_button).setOnClickListener(null);
     }
 }

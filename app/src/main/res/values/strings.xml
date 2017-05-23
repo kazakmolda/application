@@ -12,4 +12,5 @@
     <string name="member_login">Member Login</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="registration">Registration</string>
+    <string name="send">SEND</string>
 </resources>

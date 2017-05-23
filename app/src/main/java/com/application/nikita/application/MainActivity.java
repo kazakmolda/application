@@ -2,8 +2,10 @@ package com.application.nikita.application;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.application.nikita.application.add.AddingFragment;
+import com.application.nikita.application.forgotPassword.ForgotPasswordFragment;
 import com.application.nikita.application.home.HomeFragment;
 import com.application.nikita.application.like.LikeFragment;
 import com.application.nikita.application.login.LoginFragment;
@@ -18,52 +20,56 @@ public class MainActivity extends AppCompatActivity implements FragmentSwich{
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.bottom_navigation_main);
         navigationAdapter.setupWithBottomNavigation(bottomNavigation);
         //При нажатии на пункт меню загружем нужный фрагмент
-        bottomNavigation.setOnTabSelectedListener( (position, wasSelected) -> {
-            switch (position)
-            {
-                case SELECTED_MENU_ITEM.HOME_ITEM:
-                {
+        bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
+            switch (position) {
+                case SELECTED_MENU_ITEM.HOME_ITEM: {
                     switchFragment(APP_FRAGMENTS.HOME_FRAGMENT);
                     break;
                 }
-                case SELECTED_MENU_ITEM.SEARCH_ITEM:
-                {
+                case SELECTED_MENU_ITEM.SEARCH_ITEM: {
                     switchFragment(APP_FRAGMENTS.SEARCH_FRAGMENT);
                     break;
                 }
-                case SELECTED_MENU_ITEM.ADDING_ITEM:
-                {
+                case SELECTED_MENU_ITEM.ADDING_ITEM: {
                     switchFragment(APP_FRAGMENTS.ADDING_FRAGMENT);
                     break;
                 }
-                case SELECTED_MENU_ITEM.LIKE_ITEM:
-                {
+                case SELECTED_MENU_ITEM.LIKE_ITEM: {
                     switchFragment(APP_FRAGMENTS.LIKE_FRAGMENT);
                     break;
                 }
-                case SELECTED_MENU_ITEM.PROFILE_ITEM:
-                {
+                case SELECTED_MENU_ITEM.PROFILE_ITEM: {
                     switchFragment(APP_FRAGMENTS.PROFILE_FRAGMENT);
                     break;
                 }
             }
             return true;
         });
-        getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new HomeFragment(), MainActivity.FRAGMENTS_TAG.HOME_FRAGMENT_TAG).commit();
+        if (savedInstanceState == null) {
+            switchFragment(APP_FRAGMENTS.LOGIN_FRAGMENT);
+        }
     }
 
     @Override
     public void switchFragment(APP_FRAGMENTS arg) {
+        if(arg == APP_FRAGMENTS.LOGIN_FRAGMENT || arg == APP_FRAGMENTS.REGISTRATION_FRAGMENT || arg == APP_FRAGMENTS.FORGOT_PASSWORD_FRAGMENT)
+        {
+            findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
+        }
+        else
+        {
+            findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+        }
         switch (arg) {
             case LOGIN_FRAGMENT:
                 getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new LoginFragment(), MainActivity.FRAGMENTS_TAG.LOGIN_FRAGMENT_TAG).commit();
@@ -81,10 +87,13 @@ public class MainActivity extends AppCompatActivity implements FragmentSwich{
                 getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new HomeFragment(), MainActivity.FRAGMENTS_TAG.HOME_FRAGMENT_TAG).commit();
                 break;
             case ADDING_FRAGMENT:
-                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new RegistrationFragment(), MainActivity.FRAGMENTS_TAG.ADD_FRAGMENT_TAG).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new AddingFragment(), MainActivity.FRAGMENTS_TAG.ADD_FRAGMENT_TAG).commit();
                 break;
             case SEARCH_FRAGMENT:
-                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new RegistrationFragment(), MainActivity.FRAGMENTS_TAG.SEARCH_FRAGMENT_TAG).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new SearchFragment(), MainActivity.FRAGMENTS_TAG.SEARCH_FRAGMENT_TAG).commit();
+                break;
+            case FORGOT_PASSWORD_FRAGMENT:
+                getSupportFragmentManager().beginTransaction().replace(R.id.root_layout,new ForgotPasswordFragment(),MainActivity.FRAGMENTS_TAG.FORGOT_PASSWORD_TAG).commit();
                 break;
         }
     }
