@@ -22,7 +22,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         Activity activity  = getActivity();
-        activity.findViewById(R.id.do_register).setOnClickListener(this);
+        activity.findViewById(R.id.registerBtn).setOnClickListener(this);
 
     }
 
@@ -36,7 +36,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.do_register:
+            case R.id.registerBtn:
             {
                 //Click on registration button
                 FragmentSwich swither = (FragmentSwich) getActivity();
@@ -51,8 +51,9 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     public void onStop() {
         super.onStop();
         Activity activity  = getActivity();
-        activity.findViewById(R.id.do_register).setOnClickListener(null);
+        activity.findViewById(R.id.registerBtn).setOnClickListener(null);
     }
+
 }
 
 
